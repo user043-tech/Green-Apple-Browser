@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Mein Sicherer Browser</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+        .quick-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .quick-link {
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .quick-link:hover {
+            background-color: #0056b3;
+        }
+        .search-container {
+            display: flex;
+            margin-top: 30px;
+        }
+        #search-input {
+            flex-grow: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #007bff;
+            border-radius: 4px 0 0 4px;
+        }
+        #search-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+        .features {
+            margin-top: 30px;
+            background-color: #e9ecef;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .feature {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .feature::before {
+            content: '✓';
+            color: #28a745;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌐 Mein Sicherer Browser</h1>
+        
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Website oder Suchbegriff eingeben">
+            <button id="search-button" onclick="searchOrNavigate()">Suchen</button>
+        </div>
+
+        <div class="quick-links">
+            <a href="https://www.google.com" class="quick-link">Google</a>
+            <a href="https://www.wikipedia.org" class="quick-link">Wikipedia</a>
+            <a href="https://www.youtube.com" class="quick-link">YouTube</a>
+        </div>
+
+        <div class="features">
+            <h2>Browser-Funktionen:</h2>
+            <div class="feature">Sichere Webseitennavigation</div>
+            <div class="feature">Externe Webseitenunterstützung</div>
+            <div class="feature">Einfache Suchfunktion</div>
+            <div class="feature">Startseiten-Schnellzugriff</div>
+        </div>
+    </div>
+
+    <script>
+        function searchOrNavigate() {
+            const input = document.getElementById('search-input').value.trim();
+            
+            // Überprüfen, ob es eine URL ist
+            if (input.includes('.') && !input.includes(' ')) {
+                // Wenn es wie eine URL aussieht
+                const url = input.startsWith('http://') || input.startsWith('https://') 
+                    ? input 
+                    : 'https://' + input;
+                
+                // In den Hauptbrowser navigieren (Annahme: Browser.html im gleichen Verzeichnis)
+                window.location.href = 'Browser.html?url=' + encodeURIComponent(url);
+            } else {
+                // Wenn es ein Suchbegriff ist, Google-Suche
+                window.location.href = 'Browser.html?url=' + encodeURIComponent('https://www.google.com/search?q=' + encodeURIComponent(input));
+            }
+        }
+
+        // Event Listener für Enter-Taste in Suchfeld
+        document.getElementById('search-input').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                searchOrNavigate();
+            }
+        });
+    </script>
+</body>
+</html>
